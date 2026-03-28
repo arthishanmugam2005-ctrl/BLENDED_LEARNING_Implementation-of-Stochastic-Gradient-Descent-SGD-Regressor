@@ -18,63 +18,52 @@ To write a program to implement Stochastic Gradient Descent (SGD) Regressor for 
 ```
 /*
 Program to implement SGD Regressor for linear regression.
-Developed by: 
-RegisterNumber:  
+Developed by: ARTHI S
+RegisterNumber:  212225220011
 */
 ```
 ```
 import pandas as pd
 import numpy as np
-import matplotlib.pyplot as plt
 from sklearn.model_selection import train_test_split
-from sklearn.linear_model import SGDRegressor 
-from sklearn.metrics import mean_squared_error,mean_absolute_error, r2_score 
+from sklearn.linear_model import SGDRegressor
+from sklearn.metrics import mean_squared_error,r2_score,mean_absolute_error
 from sklearn.preprocessing import StandardScaler
-# Load the dataset
-data = pd.read_csv("CarPrice_Assignment (1) (1).csv")
+import matplotlib.pyplot as plt
+data=pd.read_csv('CarPrice_Assignment (1) (5).csv')
 print(data.head())
 print(data.info())
-# Data preprocessing
-# Dropping unnecessary colunms and handling categorical variables
-data =  data.drop(['CarName', 'car_ID'], axis=1)
-data =  pd.get_dummies(data, drop_first=True)
-# Splitting the data info features and target variables
-X = data.drop('price', axis=1)
-y = data['price']
-# Standardizing the data
+data=data.drop(['CarName','car_ID'],axis=1)
+data=pd.get_dummies(data,drop_first=True)
+X=data.drop('price',axis=1)
+y=data['price']
 scaler = StandardScaler()
-X = scaler.fit_transform(X)
-y = scaler.fit_transform(np.array(y).reshape(-1, 1))
-# Splitting the dataset into training and testing sets
-X_train, X_test, y_train, y_test = train_test_split(X, y, test_size=0.2, random_state=42)
-# Creating the SGD Regressor model
-sgd_model = SGDRegressor(max_iter=1000, tol=1e-3)
-# Fitting the model on the training data
-sgd_model.fit(X_train, y_train)
-# Making predictions
-y_pred = sgd_model.predict(X_test)
-# Evaluating model performance
-mse = mean_squared_error(y_test, y_pred)
-print(f"MSE: {mean_squared_error(y_test, y_pred):.2f}")
-print(f"MAE: {mean_absolute_error(y_test, y_pred):.2f}")
-print(f"R²: {r2_score(y_test, y_pred):.4f}")
+X=scaler.fit_transform(X)
+y=scaler.fit_transform(np.array(y).reshape(-1,1))
+X_train,X_test,y_train,y_test=train_test_split(X,y,test_size=0.2,random_state=42)
+sgd_model=SGDRegressor(max_iter=1000,tol=1e-3)
+sgd_model.fit(X_train,y_train)
+y_pred=sgd_model.predict(X_test)
 print('Name: ARTHI S')
 print('Reg No:212225220011')
-print(f"MSE: {mse:.4f}")
-print(f"R^2: {r2_score(y_test,y_pred):.4f}")
-print(f"MAE: {mean_absolute_error(y_test,y_pred):.4f}")
+print(f"{'MSE':}:{mean_squared_error(y_test,y_pred):}")
+print(f"{'MAE':}:{mean_absolute_error(y_test,y_pred):}")
+print(f"{'R-squared':}:{r2_score(y_test,y_pred):}")
 print("\nModel Coefficients:")
-print("Coefficiens:",sgd_model.coef_)
+print("Coefficients:",sgd_model.coef_)
 print("Intercept:",sgd_model.intercept_)
-plt.scatter(y_test, y_pred)
-plt.xlabel("Actual Prices")
-plt.ylabel("Predicted Prices")
+plt.scatter(y_test,y_pred)
+plt.plot([y.min(),y.max()],[y.min(),y.max()],'r--')
 plt.title("Actual vs Predicted Prices using SGD Regressor")
-plt.plot([min(y_test), max(y_test)], [min(y_test), max(y_test)], color='red') 
+plt.xlabel("Actual Price")
+plt.ylabel("Predicted Price")
 plt.show()
 ```
 ## Output:
-<img width="696" height="531" alt="Screenshot 2026-02-12 203856" src="https://github.com/user-attachments/assets/b75ea859-d900-463f-a844-07de48e90500" />
+
+<img width="682" height="889" alt="Screenshot 2026-03-28 183857" src="https://github.com/user-attachments/assets/005b899c-19dc-4082-9e28-091242c44675" />
+<img width="668" height="601" alt="Screenshot 2026-03-28 183909" src="https://github.com/user-attachments/assets/5cdf950d-c649-4879-a666-b9ae5b9692fd" />
+
 
 
 ## Result:
